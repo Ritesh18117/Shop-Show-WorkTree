@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductVariationService {
 
-  private getProductApi = 'http://localhost:8282/api/productVariation/getAll';
+  private getProductApi = '/api/productVariation/getAll';
 
   constructor(private http: HttpClient) { }
   

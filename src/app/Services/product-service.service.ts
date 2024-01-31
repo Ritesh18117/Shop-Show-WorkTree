@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductServiceService {
 
-  private getProductApi = 'http://localhost:8282/api/product/approvedProducts';
+  private getProductApi = '/api/product/approvedProducts';
 
   constructor(private http: HttpClient) { }
 
