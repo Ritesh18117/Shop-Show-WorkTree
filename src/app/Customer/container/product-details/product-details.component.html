@@ -1,0 +1,87 @@
+<div class="ekart--product--details--info scroll" >
+    <div class="ekart-product-detail-close">
+        <i class="fa fa-times" aria-hidden="true" (click)="onClosed()"></i>
+    </div>
+    <div class="ekart-product-detail-image">
+        <img [src]="productVariation.product.imageURL" class="ekart-product-detail-image">
+    </div>
+
+    <div class="ekart-product-detail">
+        <div class="ekart-product-detail-name">
+            <h2>{{productVariation.product.name}}</h2>
+        </div>
+        <div class="ekart-product-detail-gbc">
+            <span>{{productVariation.product.gender}}</span>
+            <!-- <span>{{product.brand}}</span> -->
+            <span>{{productVariation.product.category.categoryName}}</span>
+        </div>
+        <div class="ekart-product-detail-price">
+            <p>
+                <b>Price Each Pair:</b>
+                <div *ngIf="productVariation.product.discount">
+                    <span style="background-color: red; color:white"><s>${{productVariation.product.price}}</s></span>
+                    <span style="background-color: green; color:white">${{productVariation.product.price - productVariation.product.discount}}</span> 
+                    (Inclusive of all taxes)
+                </div>
+                <div *ngIf="!productVariation.product.discount">
+                    <span style="background-color: green; color:white">${{productVariation.product.price}}</span>
+                </div>
+                
+            <!-- </p> -->
+        </div>
+        <div class="ekart-product-detail-size">
+            <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
+                <h4>Available Size</h4>
+            </div>
+            <diV style="margin-top: 20px">
+                <!-- <span class="ekart-product-detail-available-size" *ngFor="let size of product.size">{{size}}</span> -->
+                <form action="">
+                    <!-- <label *ngFor="let size of productVariation.product"
+                    class="ekart-product-detail-available-size" >
+                        <input type="radio" name="gender" value="{{size}}" (click)="pickSize(size)"> {{size}}
+                    </label> -->
+                    <label for="">{{productVariation.size.size}}</label>
+                </form>
+            </diV>
+        </div>
+
+        <div class="ekart-product-detail-color">
+            <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
+                <h4>Available Color</h4>
+            </div>
+            <diV style="margin-top: 20px;">
+                <!-- <span *ngFor="let color of product.color" 
+                    class="ekart-product-detail-available-color"
+                    [style.background-color]="color" 
+                    style="border: 0.001px dotted black;"></span> -->
+                <form action="">
+                    <!-- <label *ngFor="let color of product.color"
+                    class="ekart-product-detail-available-color" 
+                    [style.background-color]="color" style="border: 0.001px dotted black;">
+                        <input type="radio" name="gender" value="{{color}}" (click)="pickColor(color)">
+                    </label> -->
+                    <label for="" [style.background-color]="productVariation.color.color">{{productVariation.color.color}}</label>
+                </form>
+            </diV>
+        </div>
+
+        <div class="ekart-product-detail-desc">
+            <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
+                <h4>Product Description</h4>
+            </div>
+            <div style="margin-top: 20px">
+                <p>{{productVariation.product.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="ekart-product-detail-addtoCart">
+        <!-- <div *ngIf="color && size"> -->
+            <button class="btn-add-to-cart" *ngIf="productVariation.quantity > 0; else notifyMe" (click)="addToCard()">ADD TO CART</button>
+        <!-- </div> -->
+        <ng-template #notifyMe>
+            <button class="btn-add-to-cart">NOTIFY ME</button>
+        </ng-template>
+    </div>
+</div>
+<div class="overlay"></div>
+<!-- <router-outlet></router-outlet> -->
