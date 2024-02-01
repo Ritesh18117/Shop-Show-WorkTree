@@ -1,7 +1,8 @@
-import { User } from "./user";
+import { User } from "./User";
 
 export class Seller {
-    user:User
+    id:number;
+    user:User;
     contactInfo: string;
     companyName: string;
     companyType: string;
@@ -11,6 +12,7 @@ export class Seller {
     approvalStatus: string;
   
     constructor(
+      id:number,
       user: User,
       contactInfo: string,
       companyName: string,
@@ -20,6 +22,7 @@ export class Seller {
       address: string,
       approvalStatus: string
     ) {
+      this.id = id;
       this.user = user;
       this.contactInfo = contactInfo;
       this.companyName = companyName;

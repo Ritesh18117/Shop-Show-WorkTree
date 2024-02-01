@@ -1,3 +1,18 @@
+<!-- <app-filter class="container"></app-filter>
+<p>{{searched}}</p>
+<div class="product-list d-flex flex-wrap justify-content-center" style="background-color: #e0f9f6;">
+    <ng-container *ngFor="let productVariation of groupByProductIdAndColor" >
+            <ng-container *ngFor="let product of productVariation">
+                <ng-container *ngFor="let productWithSameColor of product">
+                    <app-product (click) = "selectedProduct = productVariation; showProductDetails = true"
+                    [productWithSameColor]="productWithSameColor"
+                    *ngIf="searched === '' || productVariation.product.name">
+                </app-product>
+                </ng-container>
+        </ng-container>
+    </ng-container>
+</div> -->
+
 <app-filter class="container"></app-filter>
 <p>{{searched}}</p>
 <div class="product-list d-flex flex-wrap justify-content-center" style="background-color: #e0f9f6;">
@@ -8,17 +23,3 @@
             </app-product>
     </ng-container>
 </div>
-
-<!-- <app-filter class="container" [all]="total" [inStock]="inStock" [notInStock]="notInStock"
-    (SelectedFilterRadioButton)="onFilterChanged($event)"></app-filter>
-<p>{{searched}}</p>
-<div class="product-list d-flex flex-wrap justify-content-center" style="background-color: #e0f9f6;">
-    <ng-container *ngFor="let product of products" >
-        <ng-container *ngIf="selectedRadioButton ==='all' || product.is_in_inventory.toString() === selectedRadioButton">
-            <app-product (click) = "selectedProduct = product; showProductDetails = true"
-                 [product]="product"
-                *ngIf="searched === '' || product.name.toLowerCase().includes(searched.toLowerCase().trim())">
-            </app-product>
-        </ng-container>
-    </ng-container>
-</div> -->

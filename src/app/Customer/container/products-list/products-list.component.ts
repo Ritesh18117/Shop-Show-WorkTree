@@ -13,18 +13,24 @@ export class ProductsListComponent {
 
   products!: Product[];
   productVariations!: ProductVariation[];
+  groupByProductIdAndColor:any;
+  
 
   constructor(private productService:ProductServiceService,private productVariationService:ProductVariationService){}
 
   ngOnInit(): void {
     this.getDataFromApi();
+    
   }
 
   getDataFromApi() {
     this.productVariationService.getSomeData().subscribe(
       (data) => {
         this.productVariations = data;
-        console.log(data)
+        // For filteration
+        this.groupByProductIdAndColor = this.groupByProductIdAndColorId(this.productVariations);
+        console.log(this.groupByProductIdAndColor);
+
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -44,6 +50,8 @@ export class ProductsListComponent {
   // For Showing in Product Details
   selectedProduct!: ProductVariation;
   showProductDetails:boolean = false;
+
+
   // test:string="test";
 
   // products = [
@@ -589,4 +597,32 @@ export class ProductsListComponent {
     console.log(event);
     this.selectedRadioButton = event;
   }
+
+
+
+  // Function to group ProductVariations by product id
+  groupByProductIdAndColorId(productVariations: ProductVariation[]): { [productId: string]: { [colorId: string]: ProductVariation[] } } {
+    const groupedVariations: { [productId: string]: { [colorId: string]: ProductVariation[] } } = {};
+  
+    for (const variation of productVariations) {
+      const productId = variation.product.id;
+      const colorId = variation.color.id;
+  
+      // Group by product id
+      if (!groupedVariations[productId]) {
+        groupedVariations[productId] = {};
+      }
+  
+      // Group by color.id within each product id group
+      if (!groupedVariations[productId][colorId]) {
+        groupedVariations[productId][colorId] = [];
+      }
+  
+      groupedVariations[productId][colorId].push(variation);
+    }
+  
+    return groupedVariations;
+  }
+  
+  
 }

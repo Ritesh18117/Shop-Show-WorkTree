@@ -1,5 +1,3 @@
-// product-details.model.ts
-
 import { Category } from "./Category";
 import { Seller } from "./Seller";
 

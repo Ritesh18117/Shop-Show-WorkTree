@@ -15,5 +15,4 @@ export class ProductServiceService {
     // console.log(this.http.get(`${this.getProductApi}`));
     return this.http.get(`${this.getProductApi}`);
   }
-  
 }
