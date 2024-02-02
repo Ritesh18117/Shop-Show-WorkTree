@@ -27,6 +27,8 @@ import { MyAddressComponent } from './Customer/container/dashboard/my-address/my
 import { PlaceOrderComponent } from './Customer/container/place-order/place-order.component';
 import { SellerModule } from './Seller/seller.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './auth/auth.service';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -62,7 +64,11 @@ import { HttpClientModule } from '@angular/common/http';
     SellerModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+  ],
   bootstrap: [AppComponent] 
 })
 export class AppModule { }

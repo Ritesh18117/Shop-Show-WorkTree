@@ -12,7 +12,6 @@ export class ProductVariationService {
   constructor(private http: HttpClient) { }
   
   getSomeData(): Observable<any> {
-    // console.log(this.http.get(`${this.getProductApi}`));
     return this.http.get(`${this.getProductApi}`);
   }
 }

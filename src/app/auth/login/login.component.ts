@@ -19,4 +19,10 @@ export class LoginComponent {
     this._authService.login(this.user.email,this.user.password);
     this._router.navigate(['/home']);
   }
+
+  login() {
+    this._authService.login(this.user.email, this.user.password);
+    this.user.email = "";
+    this.user.password = "";
+  }
 }
