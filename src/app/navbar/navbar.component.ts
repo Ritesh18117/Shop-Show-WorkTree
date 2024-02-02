@@ -8,56 +8,31 @@ import { SellerAuthService } from '../Seller/auth/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  
-  isLoggedIn:string = "false";
-  isSellerLoggedIn:string = "false";
-  isAdminLoggedIn:string = "false";
-
-  customerNotLoggedIn: boolean = this.isSellerLoggedIn == 'false' && this.isAdminLoggedIn == 'false';
-  sellerLoggedIn:boolean = this.isLoggedIn == 'false' || this.isAdminLoggedIn == 'false'
-
 
   constructor(private _authService:AuthService, private _sellerAuthService:SellerAuthService){ }
 
-  ngAfterContentChecked(){
-    if(localStorage.getItem("isAdminLoggedIn") !== null){
-      const storedIsLoggedIn = localStorage.getItem("isAdminLoggedIn");
-      if (storedIsLoggedIn !== null) {
-        this.isAdminLoggedIn = storedIsLoggedIn;
-      } else {
-        console.log("Value for 'isSellerLoggedIn' is null or not found.");
-        this.isAdminLoggedIn = "false";  // Set a default value
-      }
-    }
-    
-    if(localStorage.getItem("isSellerLoggedIn") !== null){
-      const storedIsLoggedIn = localStorage.getItem("isSellerLoggedIn");
-      if (storedIsLoggedIn !== null) {
-        this.isSellerLoggedIn = storedIsLoggedIn;
-      } else {
-        console.log("Value for 'isSellerLoggedIn' is null or not found.");
-        this.isSellerLoggedIn = "false";  // Set a default value
-      }
-    }
 
-    if(localStorage.getItem("isLoggedIn") !== null){
-      const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
-      if (storedIsLoggedIn !== null) {
-        this.isLoggedIn = storedIsLoggedIn;
-      } else {
-        console.log("Value for 'isLoggedIn' is null or not found.");
-        this.isLoggedIn = "false";  // Set a default value
+  role:string = "" ;
+
+  ngAfterContentChecked(){
+    if(sessionStorage.getItem('role') !== null){
+      const storedRole = sessionStorage.getItem('role');
+      if(storedRole !== null){
+        this.role = storedRole;
+      }else{
+        console.log("Error from nav-comp!!!");
+        this.role = "";
       }
     }
   }
 
   logout(){
     this._authService.logout();
-    this.isLoggedIn = "false";
+    this.role = "";
   }
 
   Sellerlogout(){
     this._sellerAuthService.logout();
-    this.isSellerLoggedIn = "false";
+    this.role = "";
   }
 }

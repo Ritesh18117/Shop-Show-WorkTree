@@ -18,32 +18,32 @@
         </ul>
       </div>
       <div class="collapse navbar-collapse container fs-5 flex-row-reverse" id="navbarNav">
-        <div *ngIf="customerNotLoggedIn">
-          <ul class="navbar-nav" *ngIf="isSellerLoggedIn == 'false'">
+        <div>
+          <ul class="navbar-nav" >
             <li class="nav-item">
-              <a *ngIf="isLoggedIn == 'false'" class="nav-link" routerLink="/auth/login">Login</a>
+              <a *ngIf="role == ''" class="nav-link" routerLink="/auth/login">Login</a>
             </li>
             <li class="nav-item">
-              <a *ngIf="isLoggedIn == 'false'" class="nav-link" routerLink="/auth/signup">signup</a>
+              <a *ngIf="role == ''" class="nav-link" routerLink="/auth/signup">signup</a>
             </li>
             <li class="nav-item">
-              <a *ngIf="isLoggedIn == 'true'" class="nav-link"  routerLink="/cart">cart</a>
+              <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link"  routerLink="/cart">cart</a>
             </li>
             <li class="nav-item">
-              <a *ngIf="isLoggedIn == 'true'" class="nav-link" routerLink="/dashboard">dashboard</a>
+              <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="/dashboard">dashboard</a>
             </li>
             <li class="nav-item">
-              <a *ngIf="isLoggedIn == 'true'" class="nav-link" routerLink="" (click)="logout()">Logout</a>
+              <a *ngIf="role == 'ROLE_CUSTOMER'" class="nav-link" routerLink="" (click)="logout()">Logout</a>
             </li>
           </ul>
         </div>
 
-        <ul class="navbar-nav" *ngIf="sellerLoggedIn">
+        <ul class="navbar-nav">
           <li class="nav-item">
-            <a *ngIf="isSellerLoggedIn == 'true'" class="nav-link" routerLink="/seller/dashboard">Dashobard</a>
+            <a *ngIf="role == 'ROLE_SELLER'" class="nav-link" routerLink="/seller/dashboard">Dashobard</a>
           </li>
           <li class="nav-item">
-            <a *ngIf="isSellerLoggedIn == 'true'" class="nav-link" routerLink="" (click)="Sellerlogout()">Logout</a>
+            <a *ngIf="role == 'ROLE_SELLER'" class="nav-link" routerLink="" (click)="Sellerlogout()">Logout</a>
           </li>
         </ul>
         

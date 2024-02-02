@@ -34,7 +34,8 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
     this.isAuthenticated = false;
   }
 
