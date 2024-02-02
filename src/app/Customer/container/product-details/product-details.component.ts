@@ -22,7 +22,7 @@ export class ProductDetailsComponent {
   @Input() productListComp!: ProductsListComponent;
 
   // For Loading product when component is loaded 
-  productVariation!:ProductVariation;
+  product!:any;
   cardItem!:cardItem;
   
   // For Closing Card
@@ -33,7 +33,7 @@ export class ProductDetailsComponent {
 
   // Load product at first to show to details page
   ngOnInit(){
-    this.productVariation = this.productListComp.selectedProduct;
+    this.product = this.productListComp.selectedProduct;
   }
 
   // For Closing Button (will be sent to container component)

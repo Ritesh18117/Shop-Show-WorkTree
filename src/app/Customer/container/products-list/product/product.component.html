@@ -1,14 +1,10 @@
 <div class="card m-3 card-hover" style="width: 18rem;">
-    <img [src]="productVariation.product.imageURL" class="card-img-top" alt="...">
+    <img [src]="product.product.imageURL" class="card-img-top" alt="...">
     <div class="card-body">
-        <h5 class="card-title">{{productVariation.product.name}}</h5>
-        <h5 class="price">${{productVariation.product.price}}</h5>
+        <h5 class="card-title">{{product.product.name}}</h5>
+        <h5 class="price">${{product.product.price}}</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
             content.
-        </p>
-
-        <p [style.color]="productVariation.quantity > 0">
-            {{productVariation.quantity + "Items left"}}
         </p>
     </div>
 </div>

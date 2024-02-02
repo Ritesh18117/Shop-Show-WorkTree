@@ -9,5 +9,5 @@ import { ProductVariation } from 'src/app/Models/ProductVariation';
 })
 export class ProductComponent {
   @Input()
-  productVariation!: ProductVariation;
+  product!: any;
 }

@@ -11,10 +11,7 @@ import { ProductVariationService } from 'src/app/Services/product-variation.serv
 })
 export class ProductsListComponent {
 
-  products!: Product[];
-  productVariations!: ProductVariation[];
-  groupByProductIdAndColor:any;
-  
+  products!: any;
 
   constructor(private productService:ProductServiceService,private productVariationService:ProductVariationService){}
 
@@ -24,22 +21,11 @@ export class ProductsListComponent {
   }
 
   getDataFromApi() {
-    this.productVariationService.getSomeData().subscribe(
-      (data) => {
-        this.productVariations = data;
-        // For filteration
-        this.groupByProductIdAndColor = this.groupByProductIdAndColorId(this.productVariations);
-        console.log(this.groupByProductIdAndColor);
-
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-      }
-    )
-      
     this.productService.getSomeData().subscribe(
       (data) => {
         this.products = data;
+        console.log(this.products);
+        
         // Process the data as needed
       },
       (error) => {
@@ -598,31 +584,4 @@ export class ProductsListComponent {
     this.selectedRadioButton = event;
   }
 
-
-
-  // Function to group ProductVariations by product id
-  groupByProductIdAndColorId(productVariations: ProductVariation[]): { [productId: string]: { [colorId: string]: ProductVariation[] } } {
-    const groupedVariations: { [productId: string]: { [colorId: string]: ProductVariation[] } } = {};
-  
-    for (const variation of productVariations) {
-      const productId = variation.product.id;
-      const colorId = variation.color.id;
-  
-      // Group by product id
-      if (!groupedVariations[productId]) {
-        groupedVariations[productId] = {};
-      }
-  
-      // Group by color.id within each product id group
-      if (!groupedVariations[productId][colorId]) {
-        groupedVariations[productId][colorId] = [];
-      }
-  
-      groupedVariations[productId][colorId].push(variation);
-    }
-  
-    return groupedVariations;
-  }
-  
-  
 }
