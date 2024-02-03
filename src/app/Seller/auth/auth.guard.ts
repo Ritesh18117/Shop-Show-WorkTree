@@ -3,12 +3,13 @@ import { CanActivateFn, Router} from '@angular/router';
 
 export const sellerAuthGuard: CanActivateFn = (route, state) => {
   const _router = inject(Router);
-  const isLoggedIn = localStorage.getItem("isSellerLoggedIn");
+  const token = sessionStorage.getItem('token');
+  const isLoggedIn = "true";
   const url = state.url;
 
   // For Redirecting Page to Dashboard if User if Loggedin
   if(url === '/seller/login'){
-    if(isLoggedIn === null){
+    if(token === null){
       return true;
     }else{
       _router.navigate(['/dashboard']);
@@ -18,7 +19,7 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
 
     // For Redirecting Page to Dashboard if User if Loggedin
   if(url === '/seller/signup'){
-    if(isLoggedIn === null){
+    if(token === null){
       return true;
     }else{
       _router.navigate(['/dashboard']);
@@ -28,7 +29,7 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
 
     // For Redirecting Page to Dashboard if User if Loggedin
   if(url === '/seller/changepassword'){
-    if(isLoggedIn === null){
+    if(token === null){
       return true;
     }else{
       _router.navigate(['/dashboard']);
