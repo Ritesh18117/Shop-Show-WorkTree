@@ -2,20 +2,21 @@
 <form action="" class="mt-4" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-5">
-            <input type="text" name="firstname" [(ngModel)]="profile.firstname" class="form-control form-control-lg" id="colFormLabelLg" placeholder="First Name">
+            <input type="text" name="firstname" [(ngModel)]="myProfile.name.split(' ')[0]" class="form-control form-control-lg" id="colFormLabelLg" placeholder="First Name">
         </div>
         <div class="col-5">
-            <input type="text" name="lastname" [(ngModel)]="profile.lastname" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Last Name">
+            <input type="text" name="lastname" [(ngModel)]="myProfile.name.split(' ')[1]" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Last Name">
         </div>
     </div>
     <div class="m-2 pt-4">
+        <!-- Not properly working which item have to be selected -->
         <h6 class="mb-3">Your Gender</h6>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Male">
+            <input class="form-check-input" [(ngModel)]="myProfile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male">
             <label class="form-check-label" for="inlineRadio1">Male</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" [(ngModel)]="profile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">
+            <input class="form-check-input" [(ngModel)]="myProfile.gender" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Female">
             <label class="form-check-label" for="inlineRadio2">Female</label>
         </div>
     </div>
@@ -23,14 +24,14 @@
         <h6>Email</h6>
         <div class="col-5">
             <input disabled type="email" class="form-control form-control-lg" id="colFormLabelLg"
-                placeholder="ritesh.gupta.18117@gmail.com">
+                placeholder="{{myProfile.user.username}}">
         </div>
     </div>
     <div class="m-2 pt-4">
         <h6>Mobile</h6>
         <div class="col-5">
             <input disabled type="email" class="form-control form-control-lg" id="colFormLabelLg"
-                placeholder="*******557">
+                placeholder="{{myProfile.contact}}">
         </div>
     </div>
     <button class="mt-3 btn btn-primary">Submit</button>

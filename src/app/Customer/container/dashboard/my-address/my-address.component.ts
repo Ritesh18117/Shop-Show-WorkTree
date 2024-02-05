@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Address } from 'src/app/Models/address';
+import { CustomerAddressService } from 'src/app/Services/customer-address.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-my-address',
@@ -8,49 +10,69 @@ import { Address } from 'src/app/Models/address';
 })
 export class MyAddressComponent {
 
-  address:Address = {
-    firstname:"",
-    lastname:"",
-    address:"",
+  myAddresses:any;
+  addAddress = {
+    name: "",
+    contact:"",
+    address1:"",
     address2:"",
     city:"",
     state:"",
-    zipcode:"",
-    phone:""
+    country:"India",
+    zipcode:""
   }
 
-  myAddress: Address[] = [];
+  constructor(private _customerAddress:CustomerAddressService, private _authService:AuthService) {}
 
-  constructor() {
-    try {
-      let addr = localStorage.getItem('myAddress');
-      if (addr !== null) {
-        this.myAddress = JSON.parse(addr);
-      }
-      else{
-        localStorage.setItem('myAddress','');
-      }
-    } catch (error) {
-      console.log("Address parsing Error");
+  ngOnInit(): void {
+    this.getDataFromApi();
+  }
+  getDataFromApi() {
+    const token = this._authService.getToken();
+
+    if (token) {
+      // Include the token in the API request headers
+      this._customerAddress.getSomeData(token).subscribe(
+        (data) => {
+          this.myAddresses = data;
+          // Process the data as needed
+        },
+        (error) => {
+          console.error('Error fetching data:', error);
+        }
+      );
+    } else {
+      console.error('Token not available.');
     }
   }
   
   onSubmit(){
-    console.log(this.address);
-    this.myAddress.push(this.address);
-    localStorage.setItem('myAddress',JSON.stringify(this.myAddress));
-    // this.address.firstname = "";
-    // this.address.lastname = "";
-    // this.address.address = "";
-    // this.address.address2 = "";
-    // this.address.city = "";
-    // this.address.state = "";
-    // this.address.zipcode = "";
-    // this.address.phone = "";
+    const token = this._authService.getToken();
+    if(token){
+      this._customerAddress.postData(this.addAddress,token).subscribe(
+        (date) => {
+          console.log(date);
+          this.ngOnInit();
+        },
+        (error) => {
+          console.error("Posting Data Error", error);
+        }
+      )
+    } else{
+      console.error("Token Not Found");
+    } 
+    this.addAddress.address1 ="";
+    this.addAddress.address2 = "";
+    this.addAddress.city = "";
+    this.addAddress.contact = "";
+    this.addAddress.country = "";
+    this.addAddress.state = "";
+    this.addAddress.zipcode = "";
+    this.addAddress.name = "";
+    console.log("Hello");
   }
 
   deleteAddress(ind:number){
-    this.myAddress.splice(ind,1);
-    localStorage.setItem("myAddress",JSON.stringify(this.myAddress));
+
   }
 }

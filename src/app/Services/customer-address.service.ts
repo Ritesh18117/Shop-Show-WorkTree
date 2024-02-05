@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerProfileService {
+export class CustomerAddressService {
 
-  private getProductApi = '/api/customer/myProfile';
+  private getMyAddresses = '/api/address/myAddresses';
+  private postAddress = '/api/address/addAddress';
 
   constructor(private http: HttpClient) { }
 
@@ -17,6 +17,11 @@ export class CustomerProfileService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     // Make the API request with the headers
-    return this.http.get<any>(this.getProductApi, { headers });
+    return this.http.get<any>(this.getMyAddresses, { headers });
+  }
+
+  postData(address:any, token:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any>(this.postAddress, address, { headers });
   }
 }

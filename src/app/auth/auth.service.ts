@@ -42,4 +42,9 @@ export class AuthService {
   isAuthenticate() : boolean{
     return this.isAuthenticated;
   }
+
+  getToken(){
+    const token = sessionStorage.getItem('token');
+    return token;
+  }
 }
