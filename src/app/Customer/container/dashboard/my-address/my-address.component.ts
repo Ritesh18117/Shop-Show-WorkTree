@@ -32,9 +32,10 @@ export class MyAddressComponent {
 
     if (token) {
       // Include the token in the API request headers
-      this._customerAddress.getSomeData(token).subscribe(
+      this._customerAddress.getAddress(token).subscribe(
         (data) => {
           this.myAddresses = data;
+          
           // Process the data as needed
         },
         (error) => {
@@ -49,9 +50,9 @@ export class MyAddressComponent {
   onSubmit(){
     const token = this._authService.getToken();
     if(token){
-      this._customerAddress.postData(this.addAddress,token).subscribe(
-        (date) => {
-          console.log(date);
+      this._customerAddress.postAddress(this.addAddress,token).subscribe(
+        async (date) => {
+          await console.log(date);
           this.ngOnInit();
         },
         (error) => {
@@ -65,14 +66,25 @@ export class MyAddressComponent {
     this.addAddress.address2 = "";
     this.addAddress.city = "";
     this.addAddress.contact = "";
-    this.addAddress.country = "";
     this.addAddress.state = "";
     this.addAddress.zipcode = "";
     this.addAddress.name = "";
-    console.log("Hello");
   }
 
-  deleteAddress(ind:number){
-
+  deleteAddress(id:number){
+    const token = this._authService.getToken();
+    if(token){
+      this._customerAddress.deleteAdddress(id,token).subscribe(
+        async (date) => {
+          await console.log(date);
+          this.ngOnInit();
+        },
+        (error) => {
+          console.error("Posting Data Error", error);
+        }
+      )
+    } else{
+      console.error("Token Not Found");
+    }
   }
 }

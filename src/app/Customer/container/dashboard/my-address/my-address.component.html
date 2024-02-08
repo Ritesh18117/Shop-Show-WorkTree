@@ -6,13 +6,13 @@
                 <div class="card-body">
                     <h5 class="card-title">{{address.name}}&nbsp; &nbsp; &nbsp; </h5>
                     <h6>{{address.contact}}</h6>
-                    <p class="card-text">Address : {{address.address}}&nbsp;
+                    <p class="card-text">Address : {{address.address1}}&nbsp;
                         {{address.address2}}&nbsp;
                         {{address.city}}&nbsp;
                         {{address.state}}&nbsp;
                         {{address.zipcode}}&nbsp;
                     </p>
-                     <button class="btn btn-danger" (click)="deleteAddress(i)">Delete</button>
+                     <button class="btn btn-danger" (click)="deleteAddress(address.id)">Delete</button>
                 </div>
             </div>
         </div>

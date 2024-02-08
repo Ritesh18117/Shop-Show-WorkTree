@@ -7,21 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class CustomerAddressService {
 
-  private getMyAddresses = '/api/address/myAddresses';
-  private postAddress = '/api/address/addAddress';
+  private getMyAddressesURL = '/api/address/myAddresses';
+  private postAddressURL = '/api/address/addAddress';
+  private deleteAddressURL = '/api/address/deleteAddress';
 
   constructor(private http: HttpClient) { }
 
-  getSomeData(token: string): Observable<any> {
-    // Set the Authorization header with the token
+  getAddress(token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    // Make the API request with the headers
-    return this.http.get<any>(this.getMyAddresses, { headers });
+    return this.http.get<any>(this.getMyAddressesURL, { headers });
   }
 
-  postData(address:any, token:string): Observable<any> {
+  postAddress(address:any, token:string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>(this.postAddress, address, { headers });
+    return this.http.post<any>(this.postAddressURL, address, { headers });
+  }
+
+  deleteAdddress(id:number,token:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>(`${this.deleteAddressURL}/${id}`, { headers });
   }
 }
