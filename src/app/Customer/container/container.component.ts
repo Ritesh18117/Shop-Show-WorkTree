@@ -38,11 +38,7 @@ export class ContainerComponent {
     this.productListComponent.showProductDetails = false;
   }
 
-  addItemToCard(cardItem: cardItem) {
-    let item = localStorage.getItem('cardItems');
-    this.cardItems = item ? JSON.parse(item) : [];
-    this.cardItems.push(cardItem);
-    localStorage.setItem('cardItems', JSON.stringify(this.cardItems));
-    console.log(this.cardItems);
+  addItemToCard(cardItem: any) {
+    console.log(cardItem);
   }
 }

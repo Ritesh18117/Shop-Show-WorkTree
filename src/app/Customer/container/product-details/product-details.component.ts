@@ -1,84 +1,80 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from 'src/app/Models/Product';
 import { ProductsListComponent } from '../products-list/products-list.component';
 import { cardItem } from 'src/app/Models/cardItem';
 import { ToastrService } from 'ngx-toastr';
-import { ProductVariation } from 'src/app/Models/ProductVariation';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
+import { CartItemService } from 'src/app/Services/cart-item.service';
 
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent {
-
-  constructor(private toastr: ToastrService) { }
-
-  // Variables for card Items
-  color: string = "";
-  size:number = -1;
-
+  constructor(
+    private toastr: ToastrService,
+    private _authService: AuthService,
+    private _cartItemService: CartItemService
+  ) {}
 
   @Input() productListComp!: ProductsListComponent;
 
-  // For Loading product when component is loaded 
-  product!:any;
-  cardItem!:cardItem;
-  
-  // For Closing Card
-  @Output() onClose : EventEmitter<void> = new EventEmitter<void>();
-
-  // For adding item to card
-  @Output() addItemToCard: EventEmitter<cardItem> = new EventEmitter<cardItem>();
+  // For Loading product when component is loaded
+  product!: any;
+  cardItem!: cardItem;
 
   // Load product at first to show to details page
-  ngOnInit(){
+  ngOnInit() {
     this.product = this.productListComp.selectedProduct;
   }
 
+  // For Closing Card
+  @Output() onClose: EventEmitter<void> = new EventEmitter<void>();
+
   // For Closing Button (will be sent to container component)
-  onClosed(){
+  onClosed() {
     this.onClose.emit();
   }
 
-  // Color Selection
-  pickColor(color:string){
-    console.log(color);
-    this.color = color;
-  }
-  
+  // Variables for card Items
+  selectedSize: number = -1;
+
   // Size Selection
-  pickSize(size:number){
-    this.size = size;
-    console.log(this.size);
+  pickSize(event: any) {
+    this.selectedSize = event.target.value;
+    console.log(this.selectedSize);
   }
 
-  // Add to card 
-  addToCard(){
-    // if (!this.cardItem) {
-    //   this.cardItem = new cardItem(this.productVa, '', -1,0); 
-    // }
+  // Add to card
+  addToCard(product: any) {
+    const token = this._authService.getToken();
+    if (this._authService.isAuthenticate()) {
+      if (!this.cardItem) {
+        this.cardItem = product;
+      }
+      if (this.selectedSize != -1) {
+        const addToCartItem = {
+          product_id: `${product.product.id}`,
+          color: `${product.color}`,
+          size: `${this.selectedSize}`,
+          quantity: 1,
+        };
 
-    // if(this.color != ""){
-    //   if(this.size !== -1){
-
-    //     if(localStorage.getItem("isLoggedIn") === null){
-    //       this.toastr.warning('Please Login First', 'warning');
-    //     }else{
-    //       this.cardItem.product = this.product;
-    //       this.cardItem.color = this.color;
-    //       this.cardItem.size = this.size;
-    //       this.cardItem.quantity = 1;
-    //       this.addItemToCard.emit(this.cardItem);
-    //       this.toastr.success('Product Added!!', 'Success');
-    //     }
-    //   }
-    //   else{
-    //     this.toastr.warning('Please Select Size!', 'warning');
-    //   }
-    // }
-    // else{
-    //   this.toastr.warning('Please Select Color!', 'warning');
-    // }    
+        this._cartItemService.addToCart(addToCartItem, token).subscribe(
+          (data) => {
+            console.log('Successfull!!');
+          },
+          (error) => {
+            console.error('Error Found');
+          }
+        );
+        this.toastr.success('Product Added!!', 'Success');
+      } else {
+        this.toastr.warning('Please Select Size!', 'warning');
+      }
+    } else {
+      this.toastr.warning('Please login First!!');
+    }
   }
 }

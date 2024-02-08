@@ -29,14 +29,8 @@
             <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
                 <h4>Color</h4>
             </div>
-            <diV>
-                <form action="">
-                    <label
-                    class="ekart-product-detail-available-color" 
-                    [style.background-color]="product.color" style="border: 0.001px dotted black;">
-                        <input type="radio" name="gender" value="{{product.color}}">
-                    </label>
-                </form>
+            <diV style=" margin-top: 17px">
+                <span [ngStyle]="{ 'background-color': product.color, 'color': product.color}" style="border:0.1px solid black; padding: 5px 10px;;">{{product.color}}</span>
             </diV>
         </div>
 
@@ -47,9 +41,15 @@
             <diV style="margin-top: 20px">
                 <!-- <span class="ekart-product-detail-available-size" *ngFor="let size of product.size">{{size}}</span> -->
                 <form action="">
-                    <ng-container *ngFor="let size of product.size_quan">
+                    <!-- <ng-container *ngFor="let size of product.size_quan">
                         <span style="border:0.1px solid black; padding: 5px 10px;">{{ size.split(',')[0] }}</span>
-                    </ng-container>
+                    </ng-container> -->
+                    <select class="form-select" aria-label="Default select example" style="border: 0.5px solid black;" (change)="pickSize($event)">
+                        <option selected [value]="-1">Select Size</option>
+                        <ng-container *ngFor="let size of product.size_quan">
+                            <option [value]="size.split(',')[0]">{{ size.split(',')[0]}}</option>
+                        </ng-container>
+                    </select>
                 </form>
             </diV>
         </div>
@@ -67,7 +67,7 @@
     <div class="ekart-product-detail-addtoCart">
         <!-- <div *ngIf="color && size"> -->
             <!-- <button class="btn-add-to-cart" *ngIf="product.quantity > 0; else notifyMe" (click)="addToCard()">ADD TO CART</button> -->
-            <button class="btn-add-to-cart" (click)="addToCard()">ADD TO CART</button>
+            <button class="btn-add-to-cart" (click)="addToCard(product)">ADD TO CART</button>
 
             <!-- </div> -->
         <ng-template #notifyMe>

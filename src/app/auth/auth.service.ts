@@ -40,7 +40,10 @@ export class AuthService {
   }
 
   isAuthenticate() : boolean{
-    return this.isAuthenticated;
+    if(sessionStorage.getItem('token') !== null)
+      return true;
+    else
+      return false;
   }
 
   getToken(){

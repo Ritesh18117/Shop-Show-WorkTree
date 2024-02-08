@@ -2,7 +2,6 @@ import { Component, Input, Output } from '@angular/core';
 import { Product } from 'src/app/Models/Product';
 import { ProductVariation } from 'src/app/Models/ProductVariation';
 import { ProductServiceService } from 'src/app/Services/product-service.service';
-import { ProductVariationService } from 'src/app/Services/product-variation.service';
 
 @Component({
   selector: 'app-products-list',
@@ -13,7 +12,7 @@ export class ProductsListComponent {
 
   products!: any;
 
-  constructor(private productService:ProductServiceService,private productVariationService:ProductVariationService){}
+  constructor(private productService:ProductServiceService){}
 
   ngOnInit(): void {
     this.getDataFromApi();
@@ -21,7 +20,7 @@ export class ProductsListComponent {
   }
 
   getDataFromApi() {
-    this.productService.getSomeData().subscribe(
+    this.productService.getApprovedProducts().subscribe(
       (data) => {
         this.products = data;
         console.log(this.products);

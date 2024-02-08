@@ -11,7 +11,7 @@ export class ProductServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getSomeData(): Observable<any> {
+  getApprovedProducts(): Observable<any> {
     return this.http.get(`${this.getProductApi}`);
   }
 }
