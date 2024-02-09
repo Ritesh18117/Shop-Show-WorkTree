@@ -17,8 +17,6 @@ export class CardComponent {
   discount:number = 0;
   delivery:number = 49;
   totalQuantity:number = 0;
-  message:string = "";
-  forMessage:string = "";
 
   constructor(private _cartItemService:CartItemService,private _productVariationService:ProductVariationService,private _authService:AuthService){
     this.token = this._authService.getToken();
