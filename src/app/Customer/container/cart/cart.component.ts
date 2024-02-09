@@ -32,6 +32,9 @@ export class CardComponent {
     this._cartItemService.getMyCart(this.token).subscribe(
       (data) => {
         this.cardItems = data;
+        this.discount = 0;
+        this.total = 0;
+        this.totalQuantity = 0;
         for(let cardItem of this.cardItems){
           this.discount += ((cardItem.product.discount * cardItem.product.price)/100) * cardItem.quantity;
           this.total += cardItem.product.price * cardItem.quantity;
