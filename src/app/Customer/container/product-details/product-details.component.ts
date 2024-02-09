@@ -22,11 +22,13 @@ export class ProductDetailsComponent {
 
   // For Loading product when component is loaded
   product!: any;
+  role:any;
   cardItem!: cardItem;
 
   // Load product at first to show to details page
   ngOnInit() {
     this.product = this.productListComp.selectedProduct;
+    this.role = sessionStorage.getItem('role');
   }
 
   // For Closing Card
