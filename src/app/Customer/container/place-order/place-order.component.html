@@ -10,8 +10,8 @@
                     <form class="p-3">
                         <div class="form-check mb-3" *ngFor="let address of myAddresses; let i=index">
                             <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                [id]="'flexRadioDefault' + i" value="address" (change)="selectAddress(address)">
-
+                                [id]="'flexRadioDefault' + i" value="address" [checked]="i === 0" (change)="selectAddress(address)">
+                        
                             <label class="form-check-label" [for]="'flexRadioDefault' + i">
                                 <div class="card card-body">
                                     <h5 class="card-title">{{address.name}}&nbsp; &nbsp; &nbsp; </h5>
@@ -25,6 +25,7 @@
                                 </div>
                             </label>
                         </div>
+                        
 
                         <button class="btn btn-primary" (click)="showAddressForm()">Add Address</button>
                         <form #myForm="ngForm" class="mt-5 border p-3" (ngSubmit)="onSubmit()" [hidden]="!showForm">
@@ -69,6 +70,21 @@
                             <button type="submit" class="btn btn-primary m-3">Sign in</button>
                         </form>
                     </form>
+                </div>
+
+                <div class="border">
+                    <h2 class="m-4">Produt Summary</h2>
+                    <div class=" p-3 d-flex " *ngFor="let item of cardItems">
+                        <div class="detail col-md-9">
+                            {{item.product.name}} <br>
+                            Delivery Date : 20-10-2023 <br>
+                            Color : {{item.productVariation.color.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size.size}} <br>
+                            Quantity : {{item.quantity}}
+                        </div>
+                        <div class="detail col-md-2">
+                            <img src="{{item.product.imageURL}}" class="img-fluid">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="border">
