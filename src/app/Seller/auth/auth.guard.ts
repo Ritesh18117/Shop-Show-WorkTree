@@ -37,6 +37,15 @@ export const sellerAuthGuard: CanActivateFn = (route, state) => {
     }
   }
 
+  if(url === '/seller/dashboard'){
+    if(token === null){
+      _router.navigate(['/']);
+      return false;
+    }else{
+      return true;
+    }
+  }
+
   // For Login User
   if(isLoggedIn === "true"){
     return true;

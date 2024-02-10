@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { SellerService } from 'src/app/Services/seller.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,22 +10,42 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent {
 
-  profile = {
-    companyName:"Show Shoes",
-    companyType:"E-commerce",
-    email:"showshop@showshop.com",
-    contact:"6297425557",
-    gst:"22AAAAA0000A1Z5",
-    address:"Delhi",
-    licenceNumber:"2JBJ3BJ2332B",
-    website:"showshop.com",
-    verified:"false"
+  token:any;
+  profile:any;
+  editProfile:boolean =  false;
+
+  constructor(private toastr: ToastrService,private _sellerService:SellerService) { }
+
+  async ngOnInit() {
+    this.token = sessionStorage.getItem('token');
+    await this.getSellerProfile();
+  }
+  
+  async getSellerProfile(): Promise<any> {
+    try {
+      const data = await this._sellerService.getSellerProfile(this.token).toPromise();
+      this.profile = data;
+      console.log(data);
+    } catch (error) {
+      console.error("ERROR!!!", error);
+    }
   }
 
-  constructor(private toastr: ToastrService) { }
+  editProfileMethod(){
+    this.editProfile = !this.editProfile;
+  }
 
   onSubmit(){
-    console.log(this.profile);
-    this.toastr.success('Product Added!!', 'Success');
+    this._sellerService.updateProfile(this.token,this.profile).subscribe(
+      (data) =>{
+        this.profile = data;
+        this.editProfile = !this.editProfile;
+        this.toastr.success('Product Added!!', 'Success');
+      },
+      (error) =>{
+        console.error("Error", error);
+      }
+    )
+    
   }
 }
