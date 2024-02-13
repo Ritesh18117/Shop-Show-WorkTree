@@ -2,57 +2,47 @@
 <form action="" class="mt-4" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-6">
-            <label for="brand">Brand</label>
-            <select class="form-control" id="brand" name="brand" [(ngModel)]="product.brand"
-                [ngModelOptions]="{standalone: true}">
-                <option value="">Select Brand</option>
-                <option value="puma">Puma</option>
-                <option value="addidas">Addidas</option>
-                <option value="nike">Nike</option>
-                <option value="jorden">Jorden</option>
-                <option value="sketchers">Sketchers</option>
-            </select>
-        </div>
-        <div class="col-6">
             <label for="name">Name</label>
             <input type="text" name="companyType" [value]="product.name" [(ngModel)]="product.name" class="form-control"
                 id="name" placeholder="Name" name="name">
         </div>
-    </div>
-
-
-    <div class="row mt-3">
-        <div class="col-6">
-            <label for="gender">Gender</label>
-            <select class="form-control" id="gender" name="gender" [(ngModel)]="product.gender"
-                [ngModelOptions]="{standalone: true}">
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-        </div>
         <div class="col-6">
             <label for="category">Catagory</label>
-            <select class="form-control" id="category" name="category" [(ngModel)]="product.category"
-                [ngModelOptions]="{standalone: true}">
+            <select class="form-control" id="category" name="category" [(ngModel)]="product.category">
                 <option value="">Select Category</option>
-                <option value="running">Running</option>
-                <option value="sports">Sports</option>
-                <option value="casual">Casual</option>
-                <option value="ocasional">Ocasional</option>
-                <option value="slipper">Slippers</option>
-            </select>
+                <ng-container *ngFor="let category of categories; let i = index;">
+                  <option [value]="category.id">{{ category.categoryName }}</option>
+                </ng-container>
+              </select>
         </div>
     </div>
 
+
     <div class="row mt-3">
+        <div class="col-6">
+              <label for="gender">Gender</label>
+              <select class="form-control" id="gender" name="gender" [(ngModel)]="product.gender"
+                  [ngModelOptions]="{standalone: true}">
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+              </select>
+        </div>
         <div class="col-6">
             <label for="price">Price</label>
             <input type="number" name="price" class="form-control form-control-color" [(ngModel)]="product.price" id="price"
+                    value="1" title="Select Quantity" style="width: 150px;" [ngModelOptions]="{standalone: true}">           
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-6">
+            <label for="margin">Margin (in %)</label>
+            <input type="number" name="margin" class="form-control form-control-color" [(ngModel)]="product.margin" id="margin"
                     value="1" title="Select Quantity" style="width: 150px;" [ngModelOptions]="{standalone: true}">
         </div>
         <div class="col-6">
-            <label for="discountPrice">Discount Price</label>
+            <label for="discountPrice">Discount Price (in %)</label>
             <input type="number" name="discountPrice" class="form-control form-control-color" [(ngModel)]="product.discountPrice" id="discountPrice"
             value="1" title="Select Quantity" style="width: 150px;" [ngModelOptions]="{standalone: true}">
         </div>

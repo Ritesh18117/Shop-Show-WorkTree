@@ -23,7 +23,7 @@ export class ProductsListComponent {
     this.productService.getApprovedProducts().subscribe(
       (data) => {
         this.products = data;
-        // console.log(this.products);
+        console.log(this.products);
       },
       (error) => {
         console.error('Error fetching data:', error);

@@ -10,7 +10,7 @@
                 <div class=" row col-md-8 mt-4 m-3 p-1">
                     <div class="col-7">
                         {{item.product.name}}
-                        <p>Color : {{item.productVariation.color.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size : {{item.productVariation.size.size}}</p>
+                        <p>Color : {{item.product.color}} &nbsp; &nbsp; | &nbsp; &nbsp;Size : {{item.productVariation.size}}</p>
                         <p style="color: green;">Price - ${{item.product.price}} &nbsp; | &nbsp; Discount : ${{(item.product.discount * item.product.price)/100 }}</p>
                     </div>
                     <div class="col-5">

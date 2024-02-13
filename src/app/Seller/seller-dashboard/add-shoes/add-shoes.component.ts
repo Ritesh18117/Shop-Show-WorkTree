@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from 'src/app/Services/category.service';
 
 @Component({
   selector: 'app-add-shoes',
@@ -19,11 +20,30 @@ export class AddShoesComponent {
     category:"",
     price:0,
     discountPrice:0,
+    margin:0,
     imageURL:"",
     description:"",
   }
 
-  constructor(private toastr: ToastrService) { }
+  categories:any;
+
+  constructor(private toastr: ToastrService, private _categoryService:CategoryService) { }
+
+  ngOnInit(){
+    this.getCategory();
+  }
+
+  getCategory(){
+    this._categoryService.getAllCategory().subscribe(
+      (data) =>{
+        console.log(data);
+        this.categories = data;
+      }, 
+      (error) => {
+        console.error("ERROR",error);
+      }
+    )
+  }
 
   addQuantity(){
     if(this.size != "" && this.color != "" && this.quantity != ""){

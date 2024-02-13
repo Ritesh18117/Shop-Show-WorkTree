@@ -67,7 +67,7 @@
                                         [(ngModel)]="addAddress.zipcode" placeholder="Zips" id="inputZip">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary m-3">Sign in</button>
+                            <button type="submit" class="btn btn-primary m-3">Add</button>
                         </form>
                     </form>
                 </div>
@@ -78,7 +78,7 @@
                         <div class="detail col-md-9">
                             {{item.product.name}} <br>
                             Delivery Date : 20-10-2023 <br>
-                            Color : {{item.productVariation.color.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size.size}} <br>
+                            Color : {{item.product.color}} &nbsp; | &nbsp; Size : {{item.productVariation.size}} <br>
                             Quantity : {{item.quantity}}
                         </div>
                         <div class="detail col-md-2">

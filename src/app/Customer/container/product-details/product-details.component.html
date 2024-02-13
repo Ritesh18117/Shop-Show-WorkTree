@@ -25,25 +25,21 @@
                 </div>
             <!-- </p> -->
         </div>
-        <div class="ekart-product-detail-color">
+        <!-- <div class="ekart-product-detail-color">
             <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
                 <h4>Color</h4>
             </div>
             <diV style=" margin-top: 17px">
-                <span [ngStyle]="{ 'background-color': product.color, 'color': product.color}" style="border:0.1px solid black; padding: 5px 10px;;">{{product.color}}</span>
+                <span [ngStyle]="{ 'background-color': product.product.color, 'color': product.product.color}" style="border:0.1px solid black; padding: 5px 10px;;">{{product.color}}</span>
             </diV>
-        </div>
+        </div> -->
 
         <div class="ekart-product-detail-size">
             <div style="padding: 5px 0px;border-bottom: #ccc 2px solid">
                 <h4>Available Size</h4>
             </div>
             <diV style="margin-top: 20px">
-                <!-- <span class="ekart-product-detail-available-size" *ngFor="let size of product.size">{{size}}</span> -->
                 <form action="">
-                    <!-- <ng-container *ngFor="let size of product.size_quan">
-                        <span style="border:0.1px solid black; padding: 5px 10px;">{{ size.split(',')[0] }}</span>
-                    </ng-container> -->
                     <select class="form-select" aria-label="Default select example" style="border: 0.5px solid black;" (change)="pickSize($event)">
                         <option selected [value]="-1">Select Size</option>
                         <ng-container *ngFor="let size of product.size_quan">

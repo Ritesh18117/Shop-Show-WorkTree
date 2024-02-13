@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { first } from 'rxjs';
 import { CustomerProfileService } from 'src/app/Services/customer-profile.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -9,43 +11,41 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class ProfileComponent {
 
-  myProfile:any;
+  editProfile:boolean =  false;
+  token:any;
+  profile:any;
 
-  constructor(private _customerProfile:CustomerProfileService,private _authService:AuthService){}
+  constructor(private toastr: ToastrService,private _customerService:CustomerProfileService, ) { }
 
-  ngOnInit(): void {
-    this.getDataFromApi();
-    
+  async ngOnInit() {
+    this.token = sessionStorage.getItem('token');
+    await this.getSellerProfile();
   }
-  getDataFromApi() {
-    const token = this._authService.getToken();
-
-    if (token) {
-      // Include the token in the API request headers
-      this._customerProfile.getSomeData(token).subscribe(
-        (data) => {
-          this.myProfile = data;
-          console.log(data);
-          // Process the data as needed
-        },
-        (error) => {
-          console.error('Error fetching data:', error);
-        }
-      );
-    } else {
-      console.error('Token not available.');
+  
+  async getSellerProfile(): Promise<any> {
+    try {
+      const data = await this._customerService.getCustomer(this.token).toPromise();
+      this.profile = data;
+      console.log(data);
+    } catch (error) {
+      console.error("ERROR!!!", error);
     }
   }
 
-  profile = {
-    firstname:"",
-    lastname:"",
-    gender:""
+  editProfileMethod(){
+    this.editProfile = !this.editProfile;
   }
-
-
+  
   onSubmit(){
-    console.log(this.profile);
+    this._customerService.updateCustomer(this.token,this.profile).subscribe(
+      (data) =>{
+        this.profile = data;
+        this.editProfile = !this.editProfile;
+        this.toastr.success('Product Added!!', 'Success');
+      },
+      (error) =>{
+        console.error("Error", error);
+      }
+    )
   }
-
 }

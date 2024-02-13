@@ -22,12 +22,12 @@ export class ProductDetailsComponent {
 
   // For Loading product when component is loaded
   product!: any;
-  role:any;
+  role:any = "null";
   cardItem!: cardItem;
 
   // Load product at first to show to details page
   ngOnInit() {
-    this.product = this.productListComp.selectedProduct;
+    this.product = this.productListComp.selectedProduct;    
     this.role = sessionStorage.getItem('role');
   }
 
@@ -58,11 +58,11 @@ export class ProductDetailsComponent {
       if (this.selectedSize != -1) {
         const addToCartItem = {
           product_id: `${product.product.id}`,
-          color: `${product.color}`,
           size: `${this.selectedSize}`,
           quantity: 1,
         };
-
+        console.log(addToCartItem);
+        
         this._cartItemService.addToCart(addToCartItem, token).subscribe(
           (data) => {
             console.log('Successfull!!');
