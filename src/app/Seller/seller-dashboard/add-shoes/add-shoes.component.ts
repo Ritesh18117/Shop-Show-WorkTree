@@ -13,14 +13,13 @@ export class AddShoesComponent {
   quantity:string = "";
 
   product = {
-    brand:"",
     name:"",
-    quantity: [] as any[],
-    gender:"",
     category:"",
+    gender:"",
     price:0,
     discountPrice:0,
     margin:0,
+    size_quant: [] as Array<[string, string]>,
     imageURL:"",
     description:"",
   }
@@ -45,31 +44,61 @@ export class AddShoesComponent {
     )
   }
 
-  addQuantity(){
-    if(this.size != "" && this.color != "" && this.quantity != ""){
-      let quan = {
-        size: this.size,
-        color:this.color,
-        quantity:this.quantity,
-      }
-      this.product.quantity.push(quan);
+  addQuantity() {
+    if (this.size !== "" && this.quantity !== "") {
+      let sizeQuant: [string, string] = [this.size, this.quantity];
+      console.log(sizeQuant);
+      this.product.size_quant.push(sizeQuant);
       this.size = "";
-      this.color = "";
       this.quantity = "";
+
     }
   }
 
-  onSubmit(){
-    console.log(this.product);
-    this.toastr.success('Product Added!!', 'Success');
-    this.product.brand = "";
-    this.product.name = "";
-    this.product.quantity = [];
-    this.product.gender = "";
-    this.product.category = "";
-    this.product.price = 0;
-    this.product.discountPrice = 0;
-    this.product.imageURL = "";
-    this.product.description = "";
+  async onSubmit() {
+    try {
+
+      let product = await console.log("Data before resetting:", this.product);
+      console.log(product);
+
+    // Product data to send
+    //   {
+    //     "category":{
+    //         "id":3
+    //     },
+    //     "name":"Men Checkered Round Neck Polyester Grey T-Shirt",
+    //     "color":"Grey",
+    //     "price":999,
+    //     "discount":8,
+    //     "margin":6,
+    //     "gender":"men and Women",
+    //     "description":"Grey T-Shirt",
+    //     "imageURL":"https://rukminim2.flixcart.com/image/832/832/xif0q/t-shirt/p/j/c/s-ts12-vebnor-original-imagp6jcsgekgda4.jpeg?q=70&crop=false"
+    // }
+ 
+    // Product Variation 
+  //   {
+  //     "product":{
+  //         "id":52
+  //     },
+  //     "size":"M",
+  //     "quantity":12  
+  // }
+      
+      this.product.name = "";
+      this.product.gender = "";
+      this.product.category = "";
+      this.product.price = 0;
+      this.product.discountPrice = 0;
+      this.product.imageURL = "";
+      this.product.description = "";
+      this.product.size_quant = [];
+
+      this.toastr.success('Product Added!!', 'Success');
+    } catch (error) {
+      console.error("Error submitting form", error);
+      this.toastr.error('Error submitting form', 'Error');
+    }
   }
+  
 }

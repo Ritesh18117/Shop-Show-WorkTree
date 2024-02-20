@@ -9,7 +9,7 @@ import { cardItem } from 'src/app/Models/cardItem';
 })
 export class ContainerComponent {
 
-  // For Search Component
+  // For Serach Component
   searched: string = '';
   //TEst comment
 
@@ -27,7 +27,7 @@ export class ContainerComponent {
 
   @ViewChild(ProductsListComponent) productListComponent!: ProductsListComponent;
 
-  // For Search It 
+  // For Serach It 
   searchIt(event: string) {
     this.searched = event;
     console.log(this.searched + "From Contaner");

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SerachComponent } from './serach.component';
+import { SerachComponent } from './Serach.component';
 
 describe('SerachComponent', () => {
   let component: SerachComponent;

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-serach',
-  templateUrl: './serach.component.html',
-  styleUrls: ['./serach.component.css']
+  selector: 'app-Serach',
+  templateUrl: './Serach.component.html',
+  styleUrls: ['./Serach.component.css']
 })
 export class SerachComponent {
   searchValue:string= ""; // for getting value from input 

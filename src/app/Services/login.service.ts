@@ -7,13 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-  private apiUrl = '/api/user/generateToken'; 
+  private loginURL = '/api/user/generateToken'; 
+  private signupURL = '/api/user/addUser'; 
 
   constructor(private http: HttpClient) { }
 
   postData(username: string, password: string): Observable<any> {
     const credentials = { username, password };
-    return this.http.post<any>(`${this.apiUrl}`, credentials);
+    return this.http.post<any>(`${this.loginURL}`, credentials);
   }
   
+  newuser(user:any): Observable<any> {
+    return this.http.post<any>(`${this.signupURL}`, user);
+  }
 }

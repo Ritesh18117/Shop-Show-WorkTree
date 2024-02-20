@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { TopHeaderComponent } from './top-header/top-header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ContainerComponent } from './Customer/container/container.component';
-import { SerachComponent } from './Customer/container/serach/serach.component';
+import { SerachComponent } from './Customer/container/Serach/Serach.component';
 import { ProductsListComponent } from './Customer/container/products-list/products-list.component';
 import { ProductComponent } from './Customer/container/products-list/product/product.component'
 import { FormsModule } from '@angular/forms';
